@@ -1,6 +1,5 @@
-import _ from 'lodash';
-import OWLS from '../owls.json';
-import { dynamicSort } from './helpers';
+const { _ } = require("lodash");
+const { dynamicSort } = require("./helpers");
 
 var rarities = [
     {
@@ -53,7 +52,7 @@ function packBuilder(sourceDeck) {
         //console.log(card.rarity);
         //console.log(rarity);
         if (card.rarity === rarity) {
-            console.log("Pushing card, ", card.rarity, rarity);
+            //console.log("Pushing card, ", card.rarity, rarity);
             deck.push(card);
         } else {
             i--;
@@ -63,10 +62,4 @@ function packBuilder(sourceDeck) {
     return deck.sort(dynamicSort("rarityOrder"));
 }
 
-let arrayedOwls = Object.keys(OWLS).map((key) => {
-    return OWLS[key];
-});
-
-export function buildPack() {
-    return packBuilder(arrayedOwls);
-}
+module.exports = { packBuilder };

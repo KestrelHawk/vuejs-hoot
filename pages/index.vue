@@ -7,7 +7,7 @@
 
       <van-row>
         <div class="card-grid">
-          <div v-for="card in cards" class="card-flip" :key="card">
+          <div v-for="(card, idx) in cards" class="card-flip" :key="idx">
             <CardFlip :card="card" />
           </div>
         </div>
@@ -29,20 +29,17 @@
 <script lang="ts">
 import Vue from 'vue';
 import _ from 'lodash';
-import { buildPack } from '../functions/utils/packBuilder';
-
-let deck: Object[] = [];
+import axios from 'axios';
 
 
 export default Vue.extend({
-  beforeCreate() {
-    deck = buildPack();
-    //console.log("DECK: ", deck);
-  },
   data() {
     return {
-      cards: deck,
+      cards: [],
     }
+  },
+  async fetch() {
+    this.cards = await axios.get('/.netlify/functions/getCards').then(res => res.data);
   },
   methods: {
     reloadPage() {

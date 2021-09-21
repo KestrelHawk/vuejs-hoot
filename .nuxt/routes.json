@@ -2,7 +2,8 @@
   {
     "name": "index",
     "path": "/",
-    "component": "/Users/ryanwelford/Documents/Projects/VueJS/vuejs-hoot/pages/index.vue",
-    "chunkName": "pages/index"
+    "component": "F:\\\\Projects\\\\HootCards\\\\vuejs-hoot\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_6dfd4183"
   }
 ]
