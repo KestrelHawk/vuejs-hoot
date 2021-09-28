@@ -10,6 +10,7 @@ exports.handler = async function (event) {
         let pack = packBuilder(Object.keys(res).map((key) => res[key]));
         
         //create user entry
+        console.log("Creating User Entry...");
         createUser({
             "username": JSON.parse(event.body).name,
             "pack": pack
