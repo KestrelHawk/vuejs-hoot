@@ -1,11 +1,14 @@
 <template>
-    <div class="card-grid">
-        <van-loading v-if="packLoading" type="spinner" color="#1989fa" />
-        <div v-if="!revealed" v-for="(card, idx) in cards" class="card-flip" :key="idx">
-            <CardFlip :card="card" />
+    <div>
+        <div v-if="!isRevealed" class="card-grid">
+            <div v-for="(card, idx) in cards" class="card-flip" :key="idx">
+                <CardFlip :card="card" />
+            </div>
         </div>
-        <div v-if="revealed" v-for="(card, idx) in cards" class="card-flip" :key="idx">
-            <CardFlip :card="card" :revealed="true" />
+        <div v-if="isRevealed" class="card-grid">
+            <div v-for="(card, idx) in cards" class="card-flip" :key="idx">
+                <CardFlip :card="card" :revealed="true" />
+            </div>
         </div>
     </div>
 </template>
@@ -15,20 +18,20 @@ import Vue from 'vue';
 
 export default Vue.extend({
     props: {
-        cards: [],
-        loading: true,
-        revealed: false
+        cards: {
+            type: Array,
+            default: []
+        },
+        revealed: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
-            packLoading: this.loading,
-            cards: this.cards,
-            revealed: this.revealed
+            isRevealed: this.revealed
         }
     },
-    methods: {
-    }
-    
 })
 </script>
 

@@ -30,7 +30,10 @@ export default Vue.extend({
                 }
             }
         },
-        revealed: false
+        revealed: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {

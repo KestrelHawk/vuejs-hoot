@@ -10,7 +10,7 @@
       <van-row class="wide">
         <van-field v-if="!loggedIn" v-model="name" placeholder="Enter Name" />
 
-        <Pack v-if="loggedIn" :cards="cards" :loading="loading" />
+        <Pack v-if="loggedIn" :cards="cards" />
         <!-- <div v-if="loggedIn" class="card-grid">
           <van-loading v-if="loading" type="spinner" color="#1989fa" />
           <div v-if="!loading" v-for="(card, idx) in cards" class="card-flip" :key="idx">
@@ -47,8 +47,7 @@ export default Vue.extend({
     return {
       cards: [],
       name: '',
-      loggedIn: false,
-      loading: true
+      loggedIn: false
     }
   },
   methods: {
@@ -65,8 +64,7 @@ export default Vue.extend({
       this.cards = await axios.post('/.netlify/functions/getCards', {
         name: this.name
       })
-      .then(res => res.data)
-      .then(this.loading = false);
+      .then(res => res.data);
     },
   }
 })
