@@ -4,6 +4,7 @@ const createUser = async (payload) => {
     const collection = await getCollection("users");
 
     try {
+        console.log("Creating User Entry...");
         const res = await collection.create(payload);
         
         return {
