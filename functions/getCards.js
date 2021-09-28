@@ -3,22 +3,22 @@ const { packBuilder } = require("./utils/packBuilder");
 const { createUser } = require("./utils/createUser");
 
 exports.handler = async function (event) {
-    const collection = await getCollection("cards");
+    const cardsCollection = await getCollection("cards");
+    const usersCollection = await getCollection("users");
 
     try {
-        const res = await collection.find({});
+        const res = await cardsCollection.find({});
         let pack = packBuilder(Object.keys(res).map((key) => res[key]));
         
         //create user entry
-        const usersCollection = await getCollection("users");
-        const userRes = await collection.create({
+        const userRes = await usersCollection.create({
             "username": JSON.parse(event.body).name,
             "pack": pack
         });
 
         return {
             statusCode: 200,
-            body: JSON.stringify({pack, userRes}),
+            body: JSON.stringify(pack),
             headers: {
                 'Content-type': 'application/json',
             },
