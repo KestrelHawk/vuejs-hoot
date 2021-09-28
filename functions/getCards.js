@@ -10,10 +10,11 @@ exports.handler = async function (event) {
         let pack = packBuilder(Object.keys(res).map((key) => res[key]));
         
         //create user entry
-        createUser({
+        const usersCollection = await getCollection("users");
+        const userRes = await collection.create({
             "username": JSON.parse(event.body).name,
             "pack": pack
-        })
+        });
 
         return {
             statusCode: 200,
