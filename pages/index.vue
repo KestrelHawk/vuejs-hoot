@@ -1,27 +1,37 @@
 <template>
   <div class="container">
     <div>
+
       <van-row>
         <img class="logo" src="https://i.imgur.com/CIV2Yhq.png" />
       </van-row>
+      
 
-      <van-row>
-        <div class="card-grid">
-          <div v-for="(card, idx) in cards" class="card-flip" :key="idx">
+      <van-row class="wide">
+        <van-field v-if="!loggedIn" v-model="name" placeholder="Enter Name" />
+
+        <Pack v-if="loggedIn" :cards="cards" :loading="loading" />
+        <!-- <div v-if="loggedIn" class="card-grid">
+          <van-loading v-if="loading" type="spinner" color="#1989fa" />
+          <div v-if="!loading" v-for="(card, idx) in cards" class="card-flip" :key="idx">
             <CardFlip :card="card" />
           </div>
-        </div>
+        </div> -->
       </van-row>
 
       <van-row>
-        <van-button type="primary" @click="reloadPage">
-          OPEN ANOTHER PACK
+        <van-button v-if="!loggedIn" type="primary" @click="setName">
+          OPEN PACK
+        </van-button>
+        <van-button v-if="loggedIn" type="info" to="userPacks">
+          See All Packs
         </van-button>
       </van-row>
 
       <van-row>
-        <a class="attribution" href="https://www.vecteezy.com/free-vector/origami">Origami Vectors by Vecteezy</a>
+        <a class="attribution" href="https://www.vecteezy.com/free-vector/origami" v-if="loggedIn">Origami Vectors by Vecteezy</a>
       </van-row>
+      
     </div>
   </div>
 </template>
@@ -36,20 +46,44 @@ export default Vue.extend({
   data() {
     return {
       cards: [],
+      name: '',
+      loggedIn: false,
+      loading: true
     }
-  },
-  async fetch() {
-    this.cards = await axios.get('/.netlify/functions/getCards').then(res => res.data);
   },
   methods: {
-    reloadPage() {
-      window.location.reload();
-    }
+    setName() {
+      console.log(this.name);
+      if (this.name) {
+        this.loggedIn = true;
+        this.fetchCards();
+      }
+      console.log(this.loggedIn);
+    },
+    async fetchCards() {
+      //this.cards = await axios.get('/.netlify/functions/getCards').then(res => res.data);
+      this.cards = await axios.post('/.netlify/functions/getCards', {
+        name: this.name
+      })
+      .then(res => res.data)
+      .then(this.loading = false);
+    },
   }
 })
 </script>
 
 <style>
+.nav-right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
+  text-align: end;
+}
+
+.wide {
+  margin: 20px;
+}
+
 .logo {
   height: 100px;
 }
@@ -69,7 +103,7 @@ export default Vue.extend({
 }
 
 .container {
-  margin: 0 auto;
+  margin: 10 auto;
   min-height: 100vh;
   display: flex;
   justify-content: center;

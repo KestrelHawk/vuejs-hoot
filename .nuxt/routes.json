@@ -1,5 +1,12 @@
 [
   {
+    "name": "userPacks",
+    "path": "/userPacks",
+    "component": "F:\\\\Projects\\\\HootCards\\\\vuejs-hoot\\\\pages\\\\userPacks.vue",
+    "chunkName": "pages/userPacks",
+    "_name": "_c4730bc0"
+  },
+  {
     "name": "index",
     "path": "/",
     "component": "F:\\\\Projects\\\\HootCards\\\\vuejs-hoot\\\\pages\\\\index.vue",

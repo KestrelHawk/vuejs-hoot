@@ -8,3 +8,4 @@ You can directly use them in pages and other components without the need to impo
 
 - `<CardFlip>` | `<card-flip>` (components/CardFlip.vue)
 - `<HootCard>` | `<hoot-card>` (components/HootCard.vue)
+- `<Pack>` | `<pack>` (components/Pack.vue)

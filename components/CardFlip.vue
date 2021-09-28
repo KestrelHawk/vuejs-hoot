@@ -15,6 +15,11 @@
 import Vue from 'vue';
 
 export default Vue.extend({
+    beforeMount() {
+        if (this.revealed) {
+            this.flipCard();
+        }
+    },
     props: {
         card: {
             type: Object,
@@ -24,12 +29,13 @@ export default Vue.extend({
                     igmURL: ''
                 }
             }
-        }
+        },
+        revealed: false
     },
     data() {
         return {
             flipped: false,
-            owl: this.card
+            card: this.card
         }
     },
     methods: {

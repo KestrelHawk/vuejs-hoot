@@ -4,5 +4,8 @@
   },
   "HootCard": {
     "description": "Auto imported from components/HootCard.vue"
+  },
+  "Pack": {
+    "description": "Auto imported from components/Pack.vue"
   }
 }

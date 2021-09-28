@@ -1,23 +1,15 @@
 const { getCollection } = require("./utils/astraClient");
-const { packBuilder } = require("./utils/packBuilder");
-const { createUser } = require("./utils/createUser");
 
 exports.handler = async function (event) {
-    const collection = await getCollection("cards");
+    const collection = await getCollection("users");
 
     try {
         const res = await collection.find({});
-        let pack = packBuilder(Object.keys(res).map((key) => res[key]));
-        
-        //create user entry
-        createUser({
-            "username": JSON.parse(event.body).name,
-            "pack": pack
-        })
+        const userPacks = Object.keys(res).map((key) => res[key]);
 
         return {
             statusCode: 200,
-            body: JSON.stringify(pack),
+            body: JSON.stringify(userPacks),
             headers: {
                 'Content-type': 'application/json',
             },
