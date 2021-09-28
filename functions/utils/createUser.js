@@ -4,7 +4,7 @@ const createUser = async (payload) => {
     const collection = await getCollection("users");
 
     try {
-        console.log("Creating User Entry...");
+        console.log("Creating User Entry...", payload);
         const res = await collection.create(payload);
         
         return {
@@ -15,6 +15,7 @@ const createUser = async (payload) => {
             },
         };
     } catch (e) {
+        console.log("ERROR CREATING USER");
         console.error(e);
         return {
             statusCode: 500,
